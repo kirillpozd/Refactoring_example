@@ -2,7 +2,7 @@
 
 string Customer::statement() {
 	double totalAmount = 0;
-	int frequentRenterPoints = 0;
+	int bonusPoints = 0;
 	string result = "Прокат " + getName() + "\n";
 
 	for (auto& each : _rentals) {
@@ -27,12 +27,12 @@ string Customer::statement() {
 		}
 
 		// Начисление бонусных очков
-		frequentRenterPoints++;
+		bonusPoints++;
 
 		// Бонус за двухдневный прокат новинки
 		if ((each.getMovie().getPriceCode() == Movie::NEW_RELEASE) &&
 			each.getDaysRented() > 1)
-			frequentRenterPoints++;
+			bonusPoints++;
 
 		// Вывод результатов для каждого проката
 		result += "\t" + each.getMovie().getTitle() + "\t" +
@@ -43,7 +43,7 @@ string Customer::statement() {
 	// Добавление колонтитула
 	result += "Сумма задолженности: " +
 		to_string(totalAmount) + "\n";
-	result += "Вы заработали " + to_string(frequentRenterPoints) +
+	result += "Вы заработали " + to_string(bonusPoints) +
 		" бонусных очков";
 	return result;
 }
